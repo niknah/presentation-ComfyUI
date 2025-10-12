@@ -61,7 +61,7 @@ class HistoryDB {
 
       request.onerror = (event) => {
         console.error('Failed to add string', event, entry);
-        return reject(new Error('Failed to add string to database'));
+        return reject(new Error('Failed to add string to database. '+event.target?.error));
       };
     });
   }

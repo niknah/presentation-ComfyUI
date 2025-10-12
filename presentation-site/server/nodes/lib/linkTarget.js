@@ -10,7 +10,7 @@ export function linkTarget(node, id, inputName, workflowData, opts) {
   const inputPath = node.inputs.path;
 
   if (opts.userFolder && userPaths[inputPath]) {
-    // link input, output
+    // link input, output for multi user
     val = join('..', inputPath, opts.userFolder, val);
   } else if (userPaths[inputPath]) {
     // link input, output
