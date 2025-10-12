@@ -1,0 +1,14 @@
+[project]
+name = "Presentation ComfyUI"
+description = "Turn ComfyUI workflow to a website UI"
+version = "0.9.0"
+license = {text = "MIT License"}
+
+[project.urls]
+Repository = "https://github.com/niknah/presentation-ComfyUI"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "niknah"
+DisplayName = "Presentation ComfyUI"
+Icon = ""

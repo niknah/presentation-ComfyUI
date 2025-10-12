@@ -7,6 +7,8 @@ You can...
 * Allow mutiple user logins
 * Accept payments
 
+![Example](images/PresentationExample800.png)
+
 ## Install
 
 (Install nodejs)[https://nodejs.org/en/download]
