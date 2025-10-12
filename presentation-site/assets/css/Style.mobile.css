@@ -1,0 +1,26 @@
+@media only screen and (max-width: 600px) {
+  .pres-table {
+    display: block;
+    tr {
+      display: block;
+    }
+    td {
+      display: inline;
+    }
+  }
+
+  body .pres-history-container {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pres-history-item {
+    display: inline-block;
+  }
+
+  body .pres-main-page {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

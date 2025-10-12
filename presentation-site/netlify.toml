@@ -1,0 +1,4 @@
+# netlify doesn't like websockets to ComfyUI
+[build]
+  command = "nuxt build"
+  publish = "dist"

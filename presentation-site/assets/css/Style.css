@@ -1,0 +1,216 @@
+
+
+
+
+body, html {
+    --color-bg: #EBECF0;
+    --font-color: #666;
+    --ruler: 16px;
+    --border-ruler: calc(var(--ruler) / 2);
+    --color-red: #AE1100;
+    --color-shadow: #BABECC;
+    --color-white: #FFF;
+
+    background-color:var(--color-bg);
+    color: var(--font-color);
+}
+
+.pres-container {
+}
+
+.pres-table {
+	border-collapse: collapse;
+}
+
+.pres-table td {
+	border: 1px solid #e8e8e8;
+	vertical-align: middle;
+	padding: 4px;
+}
+
+
+body, p, input, .pres-select, .pres-button, textarea, input[type="file"]::file-selector-button {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -0.2px;
+    font-size: var(--ruler);
+    color: var(--font-color);
+}
+
+.pres-select {
+  max-width: 90%;
+  width: 100%;
+}
+
+.pres-textarea {
+  width: 320px;
+  max-width: 90%;
+}
+
+/*
+div, p {
+  color: var(--color-shadow);
+  text-shadow: 1px 1px 1px var(--color-white);
+}
+*/
+
+.pres-button,
+input,
+.pres-select,
+input[type="file"]::file-selector-button,
+.pres-dialog {
+  border-radius: calc(var(--ruler)*2);
+}
+textarea {
+  border-radius: calc(var(--ruler));
+}
+
+.pres-button,
+input:not([type="checkbox"]):not([type="file"]),
+input[type="file"]::file-selector-button,
+.pres-select,
+textarea,
+.pres-tab-link {
+  border: 0;
+  outline: 0;
+  font-size: var(--ruler);
+  padding: var(--ruler);
+  background-color:var(--color-bg);
+  text-shadow: 1px 1px 0 var(--color-white);
+}
+
+.pres-tab-link {
+  white-space: nowrap;
+}
+.pres-tab-bar {
+  flex-wrap: wrap;
+  display: flex;
+}
+
+label {
+  color: var(--font-color);
+}
+
+
+/* This moves the drop down arrow left so it's within the border-radius */
+.pres-select,
+::picker(select) {
+  appearance: base-select;
+}
+
+.pres-select {
+  width: fit-content;
+}
+
+
+input:not([type="checkbox"]):not([type="file"]), .pres-select, textarea {
+  margin-right: calc(var(--ruler)/2);
+  box-shadow:  inset 2px 2px 5px var(--color-shadow), inset -5px -5px 10px var(--color-white);
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+input[type="checkbox"] {
+  box-shadow:  inset 2px 2px 3px var(--color-shadow), inset -3px -3px 6px var(--color-white);
+}
+/*
+input[type="text"], textarea {
+  width: 100%;
+}
+*/
+
+input[type="text"] {
+  appearance: none;
+}
+
+input:focus, textarea:focus {
+    box-shadow:  inset 1px 1px 2px var(--color-shadow), inset -1px -1px 2px var(--color-white);
+}
+
+.pres-button, input[type="file"]::file-selector-button, .pres-dialog {
+  color:#61677C;
+  font-weight: bold;
+  box-shadow: -5px -5px 20px var(--color-white),  5px 5px 20px var(--color-shadow);
+  transition: all 0.2s ease-in-out;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.pres-button, input[type="file"]::file-selector-button {
+  cursor: pointer;
+
+  &:not(.pres-button-disabled):hover {
+    box-shadow: -2px -2px 5px var(--color-white), 2px 2px 5px var(--color-shadow);
+  }
+
+  &:active {
+    box-shadow: inset 1px 1px 2px var(--color-shadow), inset -1px -1px 2px var(--color-white);
+  }
+
+  &.pres-button-disabled {
+    cursor: auto;
+    background-color: #ddd;
+  }
+}
+
+/**********************************/
+
+.pres-checkbox {
+  appearance: none;
+  background-color: #dfe1e4;
+  border-radius: 72px;
+  border-style: none;
+  flex-shrink: 0;
+  height: 23px;
+  margin: 0;
+  position: relative;
+  width: 30px;
+}
+
+.pres-checkbox::before {
+  bottom: -6px;
+  content: "";
+  left: -6px;
+  position: absolute;
+  right: -6px;
+  top: -6px;
+}
+
+.pres-checkbox,
+.pres-checkbox::after {
+  transition: all 100ms ease-out;
+}
+
+.pres-checkbox::after {
+  background-color: #fff;
+  border-radius: 50%;
+  content: "";
+  height: 14px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  width: 14px;
+}
+
+.pres-checkbox {
+  cursor: default;
+}
+
+.pres-checkbox:hover {
+  background-color: #c9cbcd;
+  transition-duration: 0s;
+}
+
+.pres-checkbox:checked {
+  background-color: #6e79d6;
+}
+
+.pres-checkbox:checked::after {
+  background-color: #fff;
+  left: 13px;
+}
+
+.pres-checkbox:checked:hover {
+  background-color: #535db3;
+}
+
+/**********************************/
+

@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "lint": "biome lint --reporter=github js && flake8 --exclude=node_modules ."
+  }
+}

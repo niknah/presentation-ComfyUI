@@ -1,0 +1,3 @@
+<template>
+  <NodePreviewAudio />
+</template>
