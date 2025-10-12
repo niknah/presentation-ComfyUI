@@ -12,6 +12,9 @@ export function linkTarget(node, id, inputName, workflowData, opts) {
   if (opts.userFolder && userPaths[inputPath]) {
     // link input, output
     val = join('..', inputPath, opts.userFolder, val);
+  } else if (userPaths[inputPath]) {
+    // link input, output
+    val = join('..', inputPath, val);
   } else {
     const pathM = /^([^\/]+)\/(.*)$/.exec(inputPath);
     if (pathM) {
