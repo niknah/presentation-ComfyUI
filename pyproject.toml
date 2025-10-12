@@ -1,5 +1,5 @@
 [project]
-name = "Presentation ComfyUI"
+name = "presentation-ComfyUI"
 description = "Turn ComfyUI workflow to a website UI"
 version = "0.9.0"
 license = {text = "MIT License"}
