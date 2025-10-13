@@ -29,6 +29,26 @@ After installing the custom node.  On the first run, it'll install the nuxt web 
 
 (Video instructions)[https://youtu.be/M6HKBr5D-4s]
 
+## How to use the nodes
+
+[Presentation File](https://youtu.be/XBlm1r7-xRY) - Used to pick models, loras, etc.
+Presentation Advanced - Split the rest of the page into an advanced section.
+Presentation Audio / Video / Image - Load media from input.
+Presentation Drop down - A fixed selection.  Can be used in place of the Presentation File node when you only want people to select from a pre-defined range.
+
+Presentation History - Queue History.  You can remove the normal history from MainPage.vue
+Presentation Progress - Progress bar.  You can remove the normal progress bar from MainPage.vue
+Presentation Add Queue - The queue button.
+Presentation Component - Add your own custom component
+
+
+## To style
+
+Change the CSS style files...
+`assets/css/Style.css`
+`assets/css/Style.mobile.css`
+
+
 ## To remove a tab
 
 Remove the folder & file `output/presentation-site/components/tabs/xxx/`
