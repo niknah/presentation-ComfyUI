@@ -41,6 +41,9 @@ class WebBuilder:
             self.dest_path,
             "components/tabs"
         )
+        if not os.path.exists(self.tabs_path):
+            os.mkdir(self.tabs_path)
+
         WebBuilder.exit_handler_done = False
         self.userRequestedStopFile = os.path.join(
             self.dest_path,
@@ -81,10 +84,6 @@ class WebBuilder:
             f.write(s)
 
     def make_tab_list(self):
-        tabs_path = os.path.join(
-            self.dest_path,
-            "components/tabs"
-            )
         workflows_list_path = os.path.join(
             self.tabs_path,
             "WorkflowsList.js"
@@ -99,7 +98,7 @@ class WebBuilder:
             with open(tab_list_path) as main:
                 tab_list_orig = main.read()
 
-        files = os.listdir(tabs_path)
+        files = os.listdir(self.tabs_path)
         tab_classes = []
         tab_classes_html = []
         workflows_js = []

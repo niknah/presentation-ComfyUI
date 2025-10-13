@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
       q.set('email', userFolder);
     }
     let path = q.get('path');
-    const pathM = /^([^/]+)\/(.*)$/.exec(path);
+    const pathM = /^([^/\\]+)[\/\\](.*)$/.exec(path);
     if (pathM) {
       q.set('path', pathM[1]);
       q.set('subfolder', pathM[2]);

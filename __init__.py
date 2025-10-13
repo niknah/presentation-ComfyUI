@@ -46,6 +46,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "PresentationComponent": "Presentation Component",
     "PresentationDropDown": "Presentation DropDown",
     "PresentationAdvancedSection": "Presentation Advanced Section",
+    "PresentationHistory": "Presentation History",
 }
 
 WebServer.WebServer().start()

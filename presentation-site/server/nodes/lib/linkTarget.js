@@ -16,7 +16,7 @@ export function linkTarget(node, id, inputName, workflowData, opts) {
     // link input, output
     val = join('..', inputPath, val);
   } else {
-    const pathM = /^([^\/]+)\/(.*)$/.exec(inputPath);
+    const pathM = /^([^\/\\]+)[\/\\](.*)$/.exec(inputPath);
     if (pathM) {
       // link model.  First path is the type
       val = join(pathM[2], val);
