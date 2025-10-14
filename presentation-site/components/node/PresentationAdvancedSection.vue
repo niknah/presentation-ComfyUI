@@ -34,6 +34,9 @@ function click() {
 }
 
 function show(link, show) {
+  if (props.v_section_end) {
+    return;
+  }
   shown.value = show;
   let p = link.parentNode;
   let container = null;
@@ -50,7 +53,6 @@ function show(link, show) {
       if (row.querySelector('.pres-advanced-section')) {
         break;
       }
-
       if (show) {
         row.classList.remove("pres-advanced-section-hidden");
       } else {

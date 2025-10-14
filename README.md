@@ -31,15 +31,15 @@ After installing the custom node.  On the first run, it'll install the nuxt web 
 
 ## How to use the nodes
 
-[Presentation File](https://youtu.be/XBlm1r7-xRY) - Used to pick models, loras, etc.
-Presentation Advanced - Split the rest of the page into an advanced section.
-Presentation Audio / Video / Image - Load media from input.
-Presentation Drop down - A fixed selection.  Can be used in place of the Presentation File node when you only want people to select from a pre-defined range.
-
-Presentation History - Queue History.  You can remove the normal history from MainPage.vue
-Presentation Progress - Progress bar.  You can remove the normal progress bar from MainPage.vue
-Presentation Add Queue - The queue button.
-Presentation Component - Add your own custom component
+|--|--|
+| [Presentation File](https://youtu.be/XBlm1r7-xRY) | Used to pick models, loras, etc. |
+| [Presentation Advanced](https://youtu.be/6CXKYp5A5YE) | Split the rest of the page into an advanced section. |
+| [Presentation Audio / Video / Image](https://youtu.be/7hmaufjpKR0) | Load media |
+| Presentation Drop down | A fixed selection.  Can be used in place of the Presentation File node when you only want people to select from a pre-defined range. |
+| Presentation History | Queue History.  You can remove the normal history from MainPage.vue |
+| Presentation Progress | Progress bar.  You can remove the normal progress bar from MainPage.vue |
+| Presentation Add Queue | The queue button |
+| Presentation Component | Add your own custom component |
 
 
 ## To style
