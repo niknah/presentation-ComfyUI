@@ -26,7 +26,7 @@ onMounted(async() => {
     }
   }
   (new AddToQueue()).checkAllHistoryForComplete();
-  return dispatchEvents('.pres-evant-page-mounted', 'page-mounted', {}, document);
+  return dispatchEvents('.pres-event-page-mounted', 'page-mounted', {}, document);
 });
 
 function ctrlEnter(event) {

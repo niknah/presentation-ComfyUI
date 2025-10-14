@@ -184,7 +184,7 @@ async function showTab(show) {
     <label class='pres-node-title'>{{ title }}</label>
     <input ref="filterElem" placeholder="filter" @input="filterChange" />
     <a class='pres-load-files-icon' @click="loadFiles"></a>
-    <select ref="selectElem" :data-workflowid="id" class="pres-select pres-input pres-load-files" data-valuename="value" size="4" :class="selectClasses" @pres-load-files="loadFiles" @change="change">
+    <select ref="selectElem" :data-workflowid="id" class="pres-select pres-input pres-event-load-files pres-load-files" data-valuename="value" size="4" :class="selectClasses" @load-files="loadFiles" @change="change">
       <option value=""></option>
       <option v-for="(option, index) in options" :key="index">{{ option.file }}</option>
     </select>

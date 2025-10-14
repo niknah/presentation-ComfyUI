@@ -9,6 +9,7 @@ export default class {
   }
 
   addSrc(outputElem, url) {
+console.log('ou',outputElem, url);
     outputElem.dispatchEvent(
       new CustomEvent('addsrc', {
         detail: { src: url },
@@ -70,14 +71,14 @@ export default class {
             if (isDevMode) {
               console.log('imageURL', imageURL);
             }
-            dispatchEvents('.pres-addsrc', 'pres-addsrc', { imageURL }, tab);
+            dispatchEvents('.pres-event-addsrc', 'addsrc', { imageURL }, tab);
           }
           this.addSrcDone(outputElem);
         } else {
           toast.error(`Cannot find output. Workflow node id: ${output_id}`);
         }
       } else {
-        dispatchEvents('.pres-addoutput', 'addoutput', { output }, tab);
+        dispatchEvents('.pres-event-addoutput', 'addoutput', { output }, tab);
         if (!output.text) {
           toast.error(`Does not support output yet, node id: ${output_id}`, output);
         }
