@@ -36,7 +36,6 @@ const srcs = ref([]);
 const idClass = `workflowid-${props.id}`;
 
 function addsrc(event) {
-console.log('aaaaa',event);
   if (event.detail.src) {
     srcs.value.push(event.detail.src);
   } else if (event.detail.done) {
@@ -79,7 +78,6 @@ async function mountGlide() {
   if(glide) {
     glide.destroy();
   }
-console.log('srcsss',srcs.value);
   resizeImgs();
   await nextTick(); // wait for everything to resize
 

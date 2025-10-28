@@ -22,15 +22,20 @@ export function linkTarget(node, id, inputName, workflowData, opts) {
       val = join(pathM[2], val);
     }
   }
-
   // const workflowNode = workflowData.workflow.nodes.find(n => n.id == id);
+  let found = 0;
   for (const nodeId in workflow_api) {
     const destNode = workflow_api[nodeId];
     for (const inputName in destNode.inputs) {
       const link = destNode.inputs[inputName];
       if (link[0] === id) {
         destNode.inputs[inputName] = val;
+        ++found;
       }
     }
   }
+  if (found === 0) {
+    console.error(`linkTarget node id not found: ${id} workflow_api:`, workflow_api);
+  }
+//  delete workflow_api[id];
 }

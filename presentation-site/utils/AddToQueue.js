@@ -211,7 +211,7 @@ export default class {
       presentationURL.pushState(currentHash);
 
       if (isDevMode) {
-        console.log('bodyObj', bodyObj);
+        console.log('AddToQueue: send bodyObj', bodyObj);
       }
       const resp = await fetch(
         '/api/addQueue',

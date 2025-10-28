@@ -9,7 +9,6 @@ export default class {
   }
 
   addSrc(outputElem, url) {
-console.log('ou',outputElem, url);
     outputElem.dispatchEvent(
       new CustomEvent('addsrc', {
         detail: { src: url },
