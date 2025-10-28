@@ -6,10 +6,10 @@ export default function (file, path) {
     method: 'POST',
     body
   }).then((resp) => {
-    if (resp.status !== 200) {
+    if (!resp.ok) {
       // Alert
+      console.error('Upload error', resp);
     }
-    console.log(resp);
     return resp.json();
   }).then((obj) => {
     return obj;
