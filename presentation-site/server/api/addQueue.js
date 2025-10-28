@@ -28,6 +28,10 @@ class ServerNodes {
   }
 }
 
+function getWorkflowData(name) {
+  return JSON.parse(JSON.stringify(workflowDatas[name]));
+}
+
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event);
   const userFolder = getUserFolder(session);
@@ -36,7 +40,7 @@ export default defineEventHandler(async (event) => {
   const postObj = JSON.parse(body);
   const client_id = postObj.client_id;
   const name = fixTypeName(postObj.name);
-  const workflowData = workflowDatas[name];
+  const workflowData = getWorkflowData(name);
 //  const data = await fs.readFile(`components/tabs/${name}/workflow.json`, 'utf8');
 //  const workflowData = JSON.parse(data);
   const { workflow_api, workflowIds, price } = workflowData;
@@ -90,8 +94,9 @@ export default defineEventHandler(async (event) => {
       await serverNodes.processWorkflowNode(node, workflowData, postObj);
     }
   }
-  if (isDevMode) {
-    // console.log('workflow_api', JSON.stringify(workflow_api, null, 4));
+  if (true || postObj.debug) { // TODO
+    console.log('workflow_api', JSON.stringify(workflow_api, null, 4));
+//    return null;
   }
   const prompt = { prompt: workflow_api, client_id };
 
