@@ -380,13 +380,18 @@ export default class {
         }
       }
     }
+
+    removes.forEach((key) => window.localStorage.removeItem(key));
+    if (removes.length > 0) {
+      dispatchEvents('.pres-event-update-history', 'update-history', {});
+    }
+
     if (unfinishedPrompts.length > 0) {
       for(const r of await this.checkUnfinishedPrompt(unfinishedPrompts)) {
         removes.push(`waitforfinish_${r}`);
       }
       this.startWaitForFinish();
     }
-    removes.forEach((key) => window.localStorage.removeItem(key));
   }
 
   async checkHistoryForComplete(promptId, tabId, currentHash) {
@@ -424,7 +429,6 @@ export default class {
     }
 
     dispatchEvents('.pres-event-all-outputs', 'all-outputs', { output : p }, tab);
-    dispatchEvents('.pres-event-update-history', 'update-history', {});
     console.log('prompt completed', promptId);
     return p;
   }

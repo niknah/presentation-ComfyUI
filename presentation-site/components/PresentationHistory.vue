@@ -72,15 +72,12 @@ async function updateHistory() {
     return b.timestamp - a.timestamp;
   });
   await loadHistoryList(history);
+  firstUpdateDone = false;
 
 //  resetLazyLoad(listElem.value);
 //  lazyLoadInstance.update();
 }
 
-function clickItem(item) {
-  location.href = item.hash;
-  new PresentationURL().loadFromHash(item.hash.substring(1));
-}
 
 async function clearHistory() {
     const yes = await confirmDialog.value.show();
@@ -90,11 +87,22 @@ async function clearHistory() {
     }
 }
 
+function clickItem(item) {
+  location.href = item.hash;
+  new PresentationURL().loadFromHash(item.hash.substring(1));
+}
+
+let firstUpdateDone = false;
+onUpdated(() => {
+  if (!firstUpdateDone) {
+    lazyLoadInstance.update();
+    firstUpdateDone = true;
+  }
+});
 
 onMounted(async () => {
   updateHistory();
   lazyLoadInstance = new LazyLoad({ });
-  lazyLoadInstance.update();
 });
 </script>
 
