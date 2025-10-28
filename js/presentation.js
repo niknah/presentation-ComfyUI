@@ -603,6 +603,23 @@ class PresentationTab {
     });
   }
 
+  restartNuxt() {
+    if ( this.restartingNuxt) {
+      console.warn('Already restarting');
+      return;
+    }
+    this.restartingNuxt = true;
+    return fetch('/custom_nodes/presentation-ComfyUI/restart', {
+    }).then((resp) => {
+      if (!resp.ok) {
+        return {ok:false, message:resp.statusText};
+      }
+      return resp.json();
+    }).finally(() => {
+      this.restartingNuxt = false;
+    });
+  }
+
   checkChanges() {
     return window.app.pres_origGraphToPrompt().then((promptObj) => {
       if (promptObj.output) {
@@ -700,6 +717,22 @@ class PresentationTab {
               console.log('presentation.save');
               return t.checkChanges();
             });
+
+            const restartName = 'Restart';
+            const restartButton = node.addWidget('button', restartName, "", async () => {
+              console.log('presentation.restart');
+              restartButton.name = '⟳ ' + restartName;
+              const result = await t.restartNuxt();
+              if (!result.ok) {
+                console.error('restart failed', result.message);
+              } else {
+                restartButton.name = '✓ ' + restartName;
+                setTimeout(() => {
+                  restartButton.name = restartName;
+                }, 5000);
+              }
+            });
+
             t.presentationNodes[node.id] = node;
             node.onRemoved = () => {
               delete t.presentationNodes[node.id];
