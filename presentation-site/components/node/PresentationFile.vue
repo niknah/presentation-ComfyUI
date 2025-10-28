@@ -96,11 +96,28 @@ function loadFiles() {
         loadedValue = selectElem.value.getAttribute('data-loadedvalue');
       }
       selectElem.value.value = loadedValue;
+      // select in image list too.
+      const fileItem = findFileItem(loadedValue);
+      if (fileItem) {
+        selectItem({target: fileItem});
+      }
     });
   }
 }
 
+function findFileItem(filename) {
+  return presentationFileElem.value.querySelector(`.pres-file-item[data-file="${filename}"]`);
+}
+
 function change(event) {
+  const filename = event.target.value;
+  const fileItem = findFileItem(filename);
+  if (fileItem) {
+    fileItem.click();
+  } else {
+    console.warn(`Could not find item ${filename}`);
+  }
+
   dispatchEvents(
     '.pres-event-change-preview',
     'change-preview',
@@ -108,7 +125,7 @@ function change(event) {
       detail: { 
         url: (event.target.value ?
           getViewURL({
-            filename:event.target.value,
+            filename,
             subfolder:"",
             type:props.v_path
           })
@@ -142,6 +159,7 @@ async function setFilesList(files) {
 let currentSelectedItem = null;
 function selectItem(event) {
   let target = event.target;
+
   while (target && target.tagName !== 'BODY') {
     const file = target.getAttribute('data-file');
     if (file !== null) {
@@ -221,12 +239,13 @@ async function showTab(show) {
   font-size: 20px;
 }
 
-.pres-hide-dropdown {
+body .pres-hide-dropdown {
   display: none;
 }
 
 .pres-load-files {
   display: block;
+  max-height: 25vh;
 }
 
 .pres-node-title {
