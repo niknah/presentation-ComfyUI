@@ -28,9 +28,8 @@ function clearsrcs() {
   <div :data-workflowid="id" class="preview-video-c" :class="[idClass]" @addsrc="addsrc" @clearsrcs="clearsrcs">
     <div v-if="srcs.length > 0" class="pres-video-list">
       <label class='pres-node-title'>{{ title }}</label>
-      b
       <template v-for="(videosrc, index) in srcs" :key="index" >
-        <img v-if="/\.gif$/.exec(videosrc.filename)" class="rounded-lg" :src="videosrc.url">
+        <img v-if="/\.(gif|webp)$/.exec(videosrc.filename)" class="rounded-lg" :src="videosrc.url">
         <video v-else controls class="rounded-lg" :src="videosrc.url"></video>
       </template>
     </div>
