@@ -115,17 +115,24 @@ onMounted(async () => {
     <div ref="listElem" class="pres-history-list pres-event-update-history" @update-history="updateHistory">
       <div v-for="historyItem in historyList" :key="historyItem.id" :data-hash="historyItem.hash" class="pres-history-item" @click="clickItem(historyItem)">
         <div v-if="historyItem.outputs.length > 0" class="pres-history-preview">
-          <span v-if="historyItem.outputs.length > 1" class="pres-history-count">{{ historyItem.outputs.length }}</span>
-          <img v-if="/\.(png|gif|avif|webp|jpg|jpeg|bmp|ico)$/i.exec(historyItem.outputs[0].filename)" class="pres-history-media pres-history-image lazy" :src="historyItem.outputs[0].previewURL" />
+          <div v-if="/\.(png|gif|avif|webp|jpg|jpeg|bmp|ico)$/i.exec(historyItem.outputs[0].filename)" class="pres-history-media-wrapper">
+            <img class="pres-history-media pres-history-image lazy" :src="historyItem.outputs[0].previewURL" />
+          </div>
           <div v-else-if="/\.(mp4|avi|webm|mkv|mov|wmv)$/i.exec(historyItem.outputs[0].filename)" class='pres-history-media-wrapper'>
-            <div class='pres-history-media-toolbar'><a @click="clickItem(historyItem)"></a></div>
+            <video class="pres-history-media pres-history-video lazy" :data-src="historyItem.outputs[0].viewURL" controls ></video>
+            <!--
             <video class="pres-history-media pres-history-video" :src="historyItem.outputs[0].viewURL" controls ></video>
+            -->
+            <PresentationHistoryToolbar :historyItem="historyItem" />
           </div>
           <div v-else-if="/\.(mp3|wav|flac|ogg|aac|wma|aiff|m4a)$/i.exec(historyItem.outputs[0].filename)" class='pres-history-media-wrapper'>
-            <div class='pres-history-media-toolbar'><a @click="clickItem(historyItem)"></a></div>
-            <audio  class="pres-history-media pres-history-audio" :src="historyItem.outputs[0].viewURL" controls></audio>
+            <audio class="pres-history-media pres-history-audio" :src="historyItem.outputs[0].viewURL" controls></audio>
+            <PresentationHistoryToolbar :historyItem="historyItem" />
           </div>
-          <a v-else :src="historyItem.outputs[0].viewURL">Download</a>
+          <div v-else>
+            <a target='_blank' :href="historyItem.outputs[0].viewURL">Download</a>
+          </div>
+          <span v-if="historyItem.outputs.length > 1" class="pres-history-count">{{ historyItem.outputs.length }}</span>
         </div>
       </div>
     </div>
@@ -145,26 +152,38 @@ onMounted(async () => {
   overflow: scroll;
 }
 
-.pres-history-count {
-  position: absolute;
-  margin-left: 6px;
-}
-
 .pres-history-preview {
   overflow: hidden;
   border-radius: var(--border-ruler);
   border: 1px solid #888;
   margin: 2px;
+  display: grid;
 }
 
-.pres-history-preview .pres-history-media
+.pres-history-count {
+  margin: 4px;
+  opacity: 0.5;
+  color: #000;
+  background-color: #fff;
+  padding: 1px 4px;
+  border-radius: 5px;
+  grid-area: 1/1/1/1;
+  width: fit-content;
+  height: fit-content;
+}
+
+.pres-history-media-wrapper {
+  grid-area: 1/1/1/1;
+}
+
+.pres-history-media
 {
   width: 24vw;
 }
 
-.pres-history-preview .pres-history-image,
+.pres-history-preview .pres-history-image
 {
-  min-height: 24vw;
+  min-height: 18vw;
 }
 
 .pres-history-item {
@@ -194,13 +213,6 @@ onMounted(async () => {
   & .pres-history-item {
     display: inline-block;
   }
-}
-.pres-history-media-toolbar a {
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M3 21C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H10.4142L12.4142 5H20C20.5523 5 21 5.44772 21 6V9H19V7H11.5858L9.58579 5H4V16.998L5.5 11H22.5L20.1894 20.2425C20.0781 20.6877 19.6781 21 19.2192 21H3ZM19.9384 13H7.06155L5.56155 19H18.4384L19.9384 13Z'%3E%3C/path%3E%3C/svg%3E");
 }
 
 </style>
