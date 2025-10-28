@@ -63,13 +63,17 @@ export default defineEventHandler(async (event) => {
   }
   const width = parseInt(q.get('width'));
       
+  const disposition = q.has('download') ? 'download' : 'inline';
+  const headers = {
+      'Content-Disposition':  `${disposition}; filename="${filename}"`,
+  };
   if (width) {
     // set expires so we don't have to resize every time.
-    setResponseHeaders(event, {
-      'Expires': new Date(Date.now() +  24 * 60 * 60 * 1000).toUTCString(), // 1 day
-    });
+    headers.Expires = new Date(Date.now() +  24 * 60 * 60 * 1000).toUTCString(), // 1 day
+    setResponseHeaders(event, headers);
     return await sharp(await blob.arrayBuffer())
-      .resize(width).webp().toBuffer();
+      .resize(width, null, {withoutEnlargement: false}).webp().toBuffer();
   }
+  setResponseHeaders(event, headers);
   return blob;
 });
