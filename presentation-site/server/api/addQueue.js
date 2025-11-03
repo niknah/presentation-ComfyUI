@@ -94,7 +94,7 @@ export default defineEventHandler(async (event) => {
       await serverNodes.processWorkflowNode(node, workflowData, postObj);
     }
   }
-  if (true || postObj.debug) { // TODO
+  if (postObj.debug) {
     console.log('workflow_api', JSON.stringify(workflow_api, null, 4));
 //    return null;
   }
