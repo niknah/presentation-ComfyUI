@@ -63,9 +63,12 @@ export default defineEventHandler(async (event) => {
   }
   const width = parseInt(q.get('width'));
       
+  const expireAfterMs = 24 * 60 * 60 * 1000;
+  const expiresAt = new Date(Date.now() + expireAfterMs);
   const disposition = q.has('download') ? 'download' : 'inline';
   const headers = {
-      'Content-Disposition':  `${disposition}; filename="${filename}"`,
+    'Content-Disposition':  `${disposition}; filename="${filename}"`,
+    'Expires': expiresAt.toUTCString(),
   };
   if (width) {
     // set expires so we don't have to resize every time.
