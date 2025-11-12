@@ -9,7 +9,12 @@ const show = ref(false);
 
 async function submitTab(/* event */) {
   // const button = event.target;
-  await new AddToQueue().submitTab(tab.value);
+  const addToQueue = new AddToQueue();
+  try {
+    await addToQueue.submitTab(tab.value);
+  } finally {
+    addToQueue.onUnmounted();
+  }
 }
 
 

@@ -260,7 +260,7 @@ export default class {
   startWaitForFinish() {
     const eventSourcePromise = WaitForMessage.start();
     if (eventSourcePromise) {
-      const handleMessage = (event) => {
+      this.handleMessage = (event) => {
         const data = event?.detail;
         const promptId = data?.data?.prompt_id;
         if (!promptId) {
@@ -292,13 +292,20 @@ export default class {
         }
       }
       WaitForMessage.getEvent().addEventListener(
-        'message', handleMessage
+        'message', this.handleMessage
       );
-      onUnmounted(() => {
-        WaitForMessage.getEvent().removeEventListener(handleMessage);
-      });
     }
     return eventSourcePromise;
+  }
+
+  stopWaitForFinish() {
+    if (this.handleMessage) {
+      WaitForMessage.getEvent().removeEventListener('message', this.handleMessage);
+    }
+  }
+
+  onUnmounted() {
+    this.stopWaitForFinish();
   }
 
   getWaitForFinish(promptId) {

@@ -25,16 +25,31 @@ onMounted(async() => {
       openTabName(tabList[0].classname);
     }
   }
-  (new AddToQueue()).checkAllHistoryForComplete();
+  const addToQueue = getAddToQueue();
+  addToQueue.checkAllHistoryForComplete();
   return dispatchEvents('.pres-event-page-mounted', 'page-mounted', {}, document);
 });
 
 function ctrlEnter(event) {
   if (event.ctrlKey && event.key === 'Enter') {
-    window.submitTabInstance = new AddToQueue();
-    window.submitTabInstance.submitTab(openedTab); //
+    const addToQueue = getAddToQueue();
+    addToQueue.submitTab(openedTab); //
   }
 }
+
+function getAddToQueue() {
+  if (window.submitTabInstance) {
+    window.submitTabInstance.onUnmounted();
+  }
+  window.submitTabInstance = new AddToQueue();
+  return window.submitTabInstance;
+}
+
+onUnmounted(() => {
+  if (window.submitTabInstance) {
+    window.submitTabInstance.onUnmounted();
+  }
+});
 
 function dispatchOpenTab(tab, show) {
   tab.dispatchEvent(new CustomEvent('show-tab', {detail: {show} }));
