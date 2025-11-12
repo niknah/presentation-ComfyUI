@@ -2,7 +2,19 @@
 import LazyLoad from "vanilla-lazyload";
 import YesNoDialog from './YesNoDialog.vue';
 
-const historyList = ref([]);
+const blank1024=blankSVG(1024);
+const historyList = ref([
+  {
+    id: 'blank',
+    hash: '#',
+    outputs:[
+      {
+        filename:"blank.svg",
+        previewURL: blank1024,
+      }
+    ]
+  },
+]);
 const listElem = useTemplateRef('listElem');
 const confirmDialog = useTemplateRef('confirmDialog');
 
@@ -27,7 +39,17 @@ function getHistoryItem(tab, prompt_id) {
   // {"11":{"images":[{"filename":"ComfyUI_temp_mynbi_00010_.png","subfolder":"","type":"temp"}]}}
 }
 
+let width = 256;
+function getWidth() {
+  const w=listElem.value.querySelector('.lazy')?.width;
+  if (w) {
+    width = w;
+  }
+  return width;
+}
+
 async function loadHistoryList(history) {
+  const width = getWidth();
   historyList.value.length = 0;
   const list = [];
   for (const obj of history) {
@@ -54,7 +76,6 @@ async function loadHistoryList(history) {
   historyList.value = list;
 
   await nextTick();
-  const width=listElem.value.querySelector('.lazy')?.width;
   historyList.value.forEach((hList) => {
     hList.outputs.forEach((h) => {
       if (width) {
@@ -115,7 +136,7 @@ onMounted(async () => {
     <div ref="listElem" class="pres-history-list pres-event-update-history" @update-history="updateHistory">
       <div v-for="historyItem in historyList" :key="historyItem.id" :data-hash="historyItem.hash" class="pres-history-item" @click="clickItem(historyItem)">
         <div v-if="historyItem.outputs.length > 0" class="pres-history-preview">
-          <div v-if="/\.(png|gif|avif|webp|jpg|jpeg|bmp|ico)$/i.exec(historyItem.outputs[0].filename)" class="pres-history-media-wrapper">
+          <div v-if="/\.(png|gif|avif|webp|jpg|jpeg|bmp|ico|svg)$/i.exec(historyItem.outputs[0].filename)" class="pres-history-media-wrapper">
             <img class="pres-history-media pres-history-image lazy" :src="historyItem.outputs[0].previewURL" />
           </div>
           <div v-else-if="/\.(mp4|avi|webm|mkv|mov|wmv)$/i.exec(historyItem.outputs[0].filename)" class='pres-history-media-wrapper'>
