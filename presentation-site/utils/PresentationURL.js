@@ -35,18 +35,22 @@ export default class {
   }
 
   async setAllOutputs(allOutputs) {
+    let errors = [];
     for(const tabName in allOutputs) {
       const tab = document.getElementById(`tab-${tabName}`);
       if (tab) {
         const {prompt_id, outputs } = allOutputs[tabName];
-        await this.setOutputs(tab, tabName, prompt_id, outputs );
+        const newErrors = await this.setOutputs(tab, tabName, prompt_id, outputs );
+        errors = errors.concat(newErrors);
       } else {
         console.log('cannot find tab', tabName);
       }
     }
+    return errors;
   }
 
   async setOutputs(tab, tabName, prompt_id, outputs) {
+    const errors = [];
     this.setGlobalOutputs(tabName, prompt_id, outputs);
     let output = null;
     for (const output_id in outputs) {
@@ -74,7 +78,8 @@ export default class {
           }
           this.addSrcDone(outputElem);
         } else {
-          toast.error(`Cannot find output. Workflow node id: ${output_id}`);
+          console.error('Cannot find output. Workflow node id:', prompt_id, outputs);
+          errors.push(`Cannot find output. Workflow node id: ${output_id} @${tabName}`);
         }
       } else {
         dispatchEvents('.pres-event-addoutput', 'addoutput', { output }, tab);
@@ -83,6 +88,7 @@ export default class {
         }
       }
     }
+    return errors;
   }
 
   async loadFromHash(hash) {

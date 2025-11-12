@@ -416,9 +416,12 @@ export default class {
     if (!p) {
       return p;
     } else {
-      await presentationURL.setOutputs(
+      const errors = await presentationURL.setOutputs(
         tab, info.classname, promptId, p.outputs
       );
+      if (errors.length > 0) {
+        toast.error(errors.join("\n"));
+      }
     }
 
     const outputs = presentationURL.getGlobalOutputs();
@@ -429,10 +432,14 @@ export default class {
 
       const urlWithOutput = `${currentHash}&o=${outputsBase64}`;
       presentationURL.replaceState(currentHash, urlWithOutput);
-      HistoryDB.getDB().addString(
-        promptId,
-        urlWithOutput,
-      );
+      try {
+        HistoryDB.getDB().addString(
+          promptId,
+          urlWithOutput,
+        );
+      } catch(e) {
+        console.error(promptId, urlWithOutput, e);
+      }
     }
 
     dispatchEvents('.pres-event-all-outputs', 'all-outputs', { output : p }, tab);
